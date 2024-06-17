@@ -1,0 +1,32 @@
+name: ci-microservico-atualizacao-cadastral
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+
+
+
+jobs:
+  check-application:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout do repositório
+        uses: actions/checkout@v3 
+        with:
+          fetch-depth: 0 
+
+      - name: Configurar ambiente Go
+        uses: actions/setup-go@v3 
+        with:
+          go-version: '1.22.1'  
+
+      - name: Instalar dependências
+        run: go mod tidy 
+        
+      - name: Executar test
+        run: go test -v ./...
+
+      - name: Executar aplicação
+        run: go run cmd/api/main.go
