@@ -7,24 +7,23 @@ import (
 	"github.com/golang-jwt/jwt"
 )
 
-/*
-	type jwtService struct {
-		secretKey string
-		issure    string
-	}
+type jwtService struct {
+	secretKey string
+	issure    string
+}
 
-	func NewJWTService() *jwtService {
-		return &jwtService{
-			secretKey: "secret-key",
-			issure:    "book-api",
-		}
+func NewJWTService() *jwtService {
+	return &jwtService{
+		secretKey: "secret-key",
+		issure:    "book-api",
 	}
+}
 
-	type Claim struct {
-		Sum uint `json:"sum"`
-		jwt.StandardClaims
-	}
-*/
+type Claim struct {
+	Sum uint `json:"sum"`
+	jwt.StandardClaims
+}
+
 func (s *jwtService) GenerateToken(id uint) (string, error) {
 	claim := &Claim{
 		id,
