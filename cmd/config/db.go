@@ -8,7 +8,7 @@ import (
 var DB *gorm.DB
 
 func Connect() {
-	dsn := "./Users.db"
+	dsn := "./cmd/config/Users.db"
 	db, err := gorm.Open(sqlite.Open(dsn), &gorm.Config{})
 	if err != nil {
 		panic(err)
