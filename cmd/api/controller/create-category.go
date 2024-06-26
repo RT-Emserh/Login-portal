@@ -18,7 +18,16 @@ type createCategoryInput struct {
 	Telefone string `json:"telefone" binding:"required"`
 }
 
-// bom aqui que vamos criar nosso useCases
+// CreateCategory cria uma nova categoria
+// @Summary Cria uma nova categoria
+// @Description Cria uma nova categoria com os detalhes fornecidos
+// @Tags categories
+// @Accept json
+// @Produce json
+// @Param category body createCategoryInput true "Detalhes da nova categoria"
+// @Success 200 {object} map[string]interface{} "Cadastrado com sucesso"
+// @Failure 400 {object} map[string]interface{} "Erro ao cadastrar"
+// @Router /categories [post]
 func CreateCategory(ctx *gin.Context, repository repositories.IRepositories) {
 	var body createCategoryInput
 	if err := ctx.ShouldBindJSON(&body); err != nil {

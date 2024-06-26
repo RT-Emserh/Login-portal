@@ -10,7 +10,18 @@ import (
 	"microservicos.com/pkg/util"
 )
 
-// Login handles user login and returns a JWT token if credentials are correct
+// Login realiza a autenticação do usuário
+// @Summary Realiza a autenticação do usuário
+// @Description Autentica um usuário com email e senha e retorna um token JWT
+// @Tags authentication
+// @Accept json
+// @Produce json
+// @Param credentials body entites.Login true "Credenciais do usuário"
+// @Success 200 {object} map[string]interface{} "Token JWT gerado com sucesso"
+// @Failure 400 {object} map[string]interface{} "Erro ao realizar login"
+// @Failure 401 {object} map[string]interface{} "Credenciais inválidas"
+// @Failure 500 {object} map[string]interface{} "Erro no servidor"
+// @Router /login [post]
 func Login(ctx *gin.Context) {
 	var p entites.Login
 	var user entites.Category

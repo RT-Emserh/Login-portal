@@ -1,0 +1,126 @@
+basePath: /
+definitions:
+  controller.createCategoryInput:
+    properties:
+      cpf:
+        type: string
+      email:
+        type: string
+      name:
+        type: string
+      password:
+        type: string
+      telefone:
+        type: string
+    required:
+    - cpf
+    - email
+    - name
+    - password
+    - telefone
+    type: object
+  entites.Login:
+    properties:
+      email:
+        type: string
+      password:
+        type: string
+    type: object
+info:
+  contact:
+    email: support@swagger.io
+    name: API Support
+    url: http://www.swagger.io/support
+  description: essa é a documentação do login do portal do colaborador.
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: http://swagger.io/terms/
+  title: Login Portal do colaborador
+  version: "1.0"
+paths:
+  /categories:
+    post:
+      consumes:
+      - application/json
+      description: Cria uma nova categoria com os detalhes fornecidos
+      parameters:
+      - description: Detalhes da nova categoria
+        in: body
+        name: category
+        required: true
+        schema:
+          $ref: '#/definitions/controller.createCategoryInput'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Cadastrado com sucesso
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Erro ao cadastrar
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Cria uma nova categoria
+      tags:
+      - categories
+  /healthy:
+    get:
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses:
+        "400":
+          description: Erro a entrar no servidor
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Saber se o servidor tá on
+      tags:
+      - categories
+  /login:
+    post:
+      consumes:
+      - application/json
+      description: Autentica um usuário com email e senha e retorna um token JWT
+      parameters:
+      - description: Credenciais do usuário
+        in: body
+        name: credentials
+        required: true
+        schema:
+          $ref: '#/definitions/entites.Login'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Token JWT gerado com sucesso
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Erro ao realizar login
+          schema:
+            additionalProperties: true
+            type: object
+        "401":
+          description: Credenciais inválidas
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Erro no servidor
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Realiza a autenticação do usuário
+      tags:
+      - authentication
+securityDefinitions:
+  BasicAuth:
+    type: basic
+swagger: "2.0"
